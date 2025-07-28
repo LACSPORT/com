@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HOMBRE</title>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+    header {
+      background-color: #292b2c;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1001;
+    }
+    header h1 {
+      margin: 0;
+    }
+    .icono-carrito {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      cursor: pointer;
+    }
+    .icono-carrito img {
+      width: 30px;
+      height: 30px;
+    }
+    nav {
+      background-color: #444;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      padding: 0.5rem;
+      position: sticky;
+      top: 60px;
+      z-index: 1000;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      background-color: #333;
+      border-radius: 5px;
+    }
+    nav a:hover {
+      background-color: #555;
+    }
+    .carrito {
+      position: fixed;
+      top: 70px;
+      right: 0;
+      background: white;
+      border-left: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      padding: 1rem;
+      max-width: 300px;
+      width: 100%;
+      box-sizing: border-box;
+      z-index: 1000;
+      display: none;
+    }
+    .carrito.visible {
+      display: block;
+    }
+    .carrito ul {
+      list-style: none;
+      padding: 0;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .carrito button {
+      margin-top: 10px;
+    }
+    .galeria {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px auto;
+      max-width: 100%;
+      overflow: hidden;
+      padding: 0 1rem;
+    }
+    .carrusel {
+      display: flex;
+      overflow: hidden;
+      width: 660px;
+    }
+    .imagenes {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+    .producto {
+      text-align: center;
+      margin: 0 10px;
+    }
+    .producto img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+      margin: auto;
+    }
+    .flecha {
+      font-size: 30px;
+      cursor: pointer;
+      user-select: none;
+      margin: 0 10px;
+      color: #333;
+    }
+    .btn {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 4px;
+      margin-top: 5px;
+    }
+    footer {
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 8rem;
+    }
+    main {
+      padding-top: 6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    input {
+      width: 100%;
+      margin-bottom: 5px;
+      padding: 6px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>HOMBRE</h1>
+    <div class="icono-carrito" onclick="toggleCarrito()">
+      <img src="https://cdn-icons-png.flaticon.com/512/8690/8690366.png">
+    </div>
+  </header>
+
+  <nav>
+    <a href="jersey hombre.html">JERSEY</a>
+    <a href="Pantalon hombre.html">PANTALÓN</a>
+    <a href="Pantaloneta hombre.html">PANTALONETA</a>
+    <a href="index.html">INICIO</a>
+  </nav>
+
+  <div class="carrito" id="carrito">
+    <h3>Carrito</h3>
+    <ul id="lista-carrito"></ul>
+    <p id="total">Total: $0</p>
+    <button onclick="vaciarCarrito()">Vaciar Carrito</button>
+    <div id="formulario-envio" style="display:none">
+      <h4>Formulario de Envío</h4>
+      <form onsubmit="return enviarPedido(event)">
+        <input required placeholder="Nombre" id="nombre"><br>
+        <input required placeholder="Dirección" id="direccion"><br>
+        <input required placeholder="Teléfono" id="telefono"><br>
+        <input required placeholder="Cédula" id="cedula"><br>
+        <button type="submit" class="btn">Confirmar Pedido</button>
+      </form>
+    </div>
+  </div>
+
+  <main>
+    <section class="galeria">
+      <div class="flecha" onclick="mover(-1)">&#10094;</div>
+      <div class="carrusel">
+        <div class="imagenes" id="carrusel">
+          <div class="producto">
+            <img src="https://via.placeholder.com/200x130?text=1A" alt="Pantalón 1">
+            <p>Pantalón 1A</p>
+            <p>$49.900</p>
+            <button class="btn" onclick="agregarAlCarrito('Pantalón 1A', 49900)">Agregar</button>
+          </div>
+          <div class="producto">
+            <img src="https://via.placeholder.com/200x130?text=2A" alt="Pantalón 2">
+            <p>Pantalón 2A</p>
+            <p>$54.900</p>
+            <button class="btn" onclick="agregarAlCarrito('Pantalón 2A', 54900)">Agregar</button>
+          </div>
+          <div class="producto">
+            <img src="https://via.placeholder.com/200x130?text=3A" alt="Pantalón 3">
+            <p>Pantalón 3A</p>
+            <p>$57.000</p>
+            <button class="btn" onclick="agregarAlCarrito('Pantalón 3A', 57000)">Agregar</button>
+          </div>
+          <div class="producto">
+            <img src="https://via.placeholder.com/200x130?text=4A" alt="Pantalón 4">
+            <p>Pantalón 4A</p>
+            <p>$52.000</p>
+            <button class="btn" onclick="agregarAlCarrito('Pantalón 4A', 52000)">Agregar</button>
+          </div>
+        </div>
+      </div>
+      <div class="flecha" onclick="mover(1)">&#10095;</div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 Tienda de Pantalones - Todos los derechos reservados
+  </footer>
+
+  <script>
+    let posicion = 0;
+    const totalProductos = 4;
+    const visibles = 3;
+
+    function mover(direccion) {
+      posicion += direccion;
+      if (posicion < 0) posicion = 0;
+      if (posicion > totalProductos - visibles) posicion = totalProductos - visibles;
+      document.getElementById('carrusel').style.transform = `translateX(${-posicion * 220}px)`;
+    }
+
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+    function agregarAlCarrito(nombre, precio) {
+      carrito.push({ nombre, precio });
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      actualizarCarrito();
+    }
+
+    function actualizarCarrito() {
+      const lista = document.getElementById('lista-carrito');
+      const total = document.getElementById('total');
+      lista.innerHTML = '';
+      let suma = 0;
+
+      carrito.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `${item.nombre} - $${item.precio.toLocaleString()} <button onclick="eliminarProducto(${index})">❌</button>`;
+        lista.appendChild(li);
+        suma += item.precio;
+      });
+
+      total.innerText = `Total: $${suma.toLocaleString()}`;
+      document.getElementById('formulario-envio').style.display = carrito.length > 0 ? 'block' : 'none';
+    }
+
+    function eliminarProducto(indice) {
+      carrito.splice(indice, 1);
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      actualizarCarrito();
+    }
+
+    function vaciarCarrito() {
+      carrito.length = 0;
+      localStorage.removeItem('carrito');
+      actualizarCarrito();
+    }
+
+    function enviarPedido(e) {
+      e.preventDefault();
+      const nombre = document.getElementById('nombre').value;
+      const direccion = document.getElementById('direccion').value;
+      const telefono = document.getElementById('telefono').value;
+      const cedula = document.getElementById('cedula').value;
+      alert(`Gracias ${nombre}, tu pedido se enviará a ${direccion}. Nos comunicaremos al ${telefono}. Cédula: ${cedula}`);
+      vaciarCarrito();
+      e.target.reset();
+    }
+
+    function toggleCarrito() {
+      const carrito = document.getElementById('carrito');
+      carrito.classList.toggle('visible');
+    }
+
+    document.addEventListener('DOMContentLoaded', actualizarCarrito);
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHALECOS</title>
+</head>
+<body>
+    <title>CHALECOS</title>
+
+
+
+</head>
+<body>
+ 
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          background-color: #ffffff;
+        }
+        header {
+          background-color: #292b2c;
+          color: white;
+          padding: 1rem;
+          text-align: center;
+        }
+        nav {
+          background-color: #000000;
+          padding: 0.5rem;
+          text-align: center;
+        }
+        nav a {
+          color: white;
+          text-decoration: none;
+          margin: 0 1rem;
+          font-weight: bold;
+        }
+        main {
+          padding: 2rem;
+        }
+        footer {
+          background-color: #000000;
+          color: white;
+          text-align: center;
+          padding: 1rem;
+          position: fixed;
+          width: 100%;
+          bottom: 0;
+        }
+        .card {
+          background: white;
+          padding: 1rem;
+          margin: 1rem 0;
+          border-radius: 8px;
+          box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+      </style>
+
+
+  <header>
+    <h1>CHALECOS </h1>
+  </header>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 40px;
+      text-align: center;
+    }
+    .galeria {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 0;
+    }
+    .carrusel {
+      display: flex;
+      overflow: hidden;
+      width: 600px;
+    }
+    .imagenes {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+    .imagenes img {
+      width: 180px;
+      height: 180px;
+      margin: 0 5px;
+      object-fit: cover;
+    }
+    .flecha {
+      font-size: 30px;
+      cursor: pointer;
+      user-select: none;
+      margin: 0 10px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+<section class="card">
+
+  <h2>CHALECOS OSCUROS </h2>
+  <div class="galeria">
+    <div class="flecha" onclick="mover(-1, 1)">&#10094;</div>
+    <div class="carrusel">
+      <div class="imagenes fila2">
+        <img src="https://via.placeholder.com/200x130?text=1B">
+        <img src="https://via.placeholder.com/200x130?text=2B">
+        <img src="https://via.placeholder.com/200x130?text=3B">
+        <img src="https://via.placeholder.com/200x130?text=4B">
+        <img src="https://via.placeholder.com/200x130?text=5B">
+      </div>
+    </div>
+    <div class="flecha" onclick="mover(1, 1)">&#10095;</div>
+  </div>
+  <h2>CHALECOS CLAROS</h2>
+  <div class="galeria">
+    <div class="flecha" onclick="mover(-1, 1)">&#10094;</div>
+    <div class="carrusel">
+      <div class="imagenes fila2">
+        <img src="https://via.placeholder.com/200x130?text=1B">
+        <img src="https://via.placeholder.com/200x130?text=2B">
+        <img src="https://via.placeholder.com/200x130?text=3B">
+        <img src="https://via.placeholder.com/200x130?text=4B">
+        <img src="https://via.placeholder.com/200x130?text=5B">
+      </div>
+    </div>
+    <div class="flecha" onclick="mover(1, 1)">&#10095;</div>
+  </div>
+  
+  <script>
+    let posiciones = [0, 0];
+
+    function mover(direccion, fila) {
+      const carruseles = document.querySelectorAll('.imagenes');
+      const imagenesVisibles = 3;
+      const totalImagenes = carruseles[fila].children.length;
+      posiciones[fila] += direccion;
+
+      if (posiciones[fila] < 0) posiciones[fila] = 0;
+      if (posiciones[fila] > totalImagenes - imagenesVisibles) {
+        posiciones[fila] = totalImagenes - imagenesVisibles;
+      }
+
+      const desplazamiento = -posiciones[fila] * 210; // 200px + 2*5px margen
+      carruseles[fila].style.transform = `translateX(${desplazamiento}px)`;
+    }
+  </script>
+</section class="card"> </center>
+
+
+</body>
+</html>

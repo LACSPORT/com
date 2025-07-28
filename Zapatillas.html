@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ZAPATILLAS</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+    header {
+      background-color: #292b2c;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    .card {
+      background: white;
+      padding: 1rem;
+      margin: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .galeria {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 0;
+    }
+    .carrusel {
+      display: flex;
+      overflow: hidden;
+      width: 650px;
+    }
+    .imagenes {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+    .producto {
+      width: 200px;
+      margin: 0 5px;
+      background: #fff;
+      border-radius: 5px;
+      text-align: center;
+    }
+    .producto img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+    .producto p {
+      margin: 5px 0;
+    }
+    .producto button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      margin-bottom: 5px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .producto button:hover {
+      background-color: #218838;
+    }
+    .flecha {
+      font-size: 30px;
+      cursor: pointer;
+      user-select: none;
+      margin: 0 10px;
+      color: #333;
+    }
+
+    /* Carrito flotante */
+    #carrito {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 999;
+      width: 250px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    #carrito h2 {
+      margin-top: 0;
+      font-size: 1.1rem;
+    }
+    #carrito ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    #carrito li {
+      padding: 4px 0;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #carrito li button {
+      background-color: #dc3545;
+      border: none;
+      color: white;
+      padding: 2px 6px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 0.8em;
+    }
+    #carrito li button:hover {
+      background-color: #c82333;
+    }
+    #carrito p {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>PANTALONES</h1>
+  </header>
+
+  <div id="carrito" style="position: fixed; top: 10px; right: 10px; background: white; padding: 10px; border: 1px solid #ccc;">
+    <h3>🛒 Carrito (<span id="cantidad-productos">0</span>)</h3>
+    <ul id="lista-carrito"></ul>
+    <button onclick="vaciarCarrito()">Vaciar</button>
+  </div>
+  
+  <script>
+  function mostrarCarrito() {
+    const lista = document.getElementById('lista-carrito');
+    const cantidad = document.getElementById('cantidad-productos');
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    cantidad.textContent = carrito.length;
+    lista.innerHTML = carrito.map((item, i) =>
+      `<li>${item.nombre} - $${item.precio} <button onclick="eliminarProducto(${i})">❌</button></li>`
+    ).join('');
+  }
+  
+  function agregarAlCarrito(nombre, precio) {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    carrito.push({ nombre, precio });
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    mostrarCarrito();
+  }
+  
+  function eliminarProducto(index) {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    carrito.splice(index, 1);
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    mostrarCarrito();
+  }
+  
+  function vaciarCarrito() {
+    localStorage.removeItem('carrito');
+    mostrarCarrito();
+  }
+  
+  window.onload = mostrarCarrito;
+  </script>
+
+<script>
+fetch("carrito.html")
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById("contenedor-carrito").innerHTML = html;
+  });
+</script>
+
+
+  <!-- Primer carrusel -->
+  <section class="card">
+    <CENTER><h2>ZAPATILLAS SIO MONTAÑA</h2></CENTER>
+    <div class="galeria">
+      <div class="flecha" onclick="mover(-1, 0)">&#10094;</div>
+      <div class="carrusel">
+        <div class="imagenes fila0">
+          <div class="producto">
+            <img src="https://via.placeholder.com/200x150?text=1A" />
+            <p>Tirantas Azul</p>
+            <p>$30.000</p>
+            <button onclick="agregarAlCarrito('Zapatos deportivos', 149900)">Añadir al carrito</button>
+          </div>
+          <div class="producto">
+            <img src="https://via.placeholder.com/200x150?text=2A" />
+            <p>Tirantas Rojo</p>
+            <p>$32.000</p>
+            <button onclick="agregarCarrito('Tirantas Rojo', 32000)">Añadir</button>
+          </div>
+          <div class="producto">
+            <img src="https://via.placeholder.com/200x150?text=3A" />
+            <p>Tirantas Verde</p>
+            <p>$28.000</p>
+            <button onclick="agregarCarrito('Tirantas Verde', 28000)">Añadir</button>
+          </div>
+          <div class="producto">
+            <img src="https://via.placeholder.com/200x150?text=4A" />
+            <p>Tirantas Negra</p>
+            <p>$29.000</p>
+            <button onclick="agregarCarrito('Tirantas Negra', 29000)">Añadir</button>
+          </div>
+        </div>
+      </div>
+      <div class="flecha" onclick="mover(1, 0)">&#10095;</div>
+    </div>
+  </section>
+
+  <!-- Segundo carrusel -->
+  <section class="card">
+    <h2>PANTALÓN SIN TIRANTAS</h2>
+    <div class="galeria">
+      <div class="flecha" onclick="mover(-1, 1)">&#10094;</div>
+      <div class="carrusel">
+        <div class="imagenes fila1">
+          <div class="producto">
+            <img src="https://via.placeholder.com/200x150?text=1B" />
+            <p>Sin Tirantas Azul</p>
+            <p>$25.000</p>
+            <button onclick="agregarCarrito('Sin Tirantas Azul', 25000)">Añadir</button>
+          </div>
+          <div class="producto">
+            <img src="https://via.placeholder.com/200x150?text=2B" />
+            <p>Sin Tirantas Gris</p>
+            <p>$26.000</p>
+            <button onclick="agregarCarrito('Sin Tirantas Gris', 26000)">Añadir</button>
+          </div>
+          <div class="producto">
+            <img src="https://via.placeholder.com/200x150?text=3B" />
+            <p>Sin Tirantas Blanco</p>
+            <p>$27.000</p>
+            <button onclick="agregarCarrito('Sin Tirantas Blanco', 27000)">Añadir</button>
+          </div>
+          <div class="producto">
+            <img src="https://via.placeholder.com/200x150?text=4B" />
+            <p>Sin Tirantas Negro</p>
+            <p>$29.000</p>
+            <button onclick="agregarCarrito('Sin Tirantas Negro', 29000)">Añadir</button>
+          </div>
+        </div>
+      </div>
+      <div class="flecha" onclick="mover(1, 1)">&#10095;</div>
+    </div>
+  </section>
+
+  <!-- Script JS -->
+  <script>
+    let posiciones = [0, 0];
+
+    function mover(direccion, fila) {
+      const carruseles = document.querySelectorAll('.imagenes');
+      const visibles = 3;
+      const total = carruseles[fila].children.length;
+      posiciones[fila] += direccion;
+
+      if (posiciones[fila] < 0) posiciones[fila] = 0;
+      if (posiciones[fila] > total - visibles) posiciones[fila] = total - visibles;
+
+      const desplazamiento = -posiciones[fila] * 210;
+      carruseles[fila].style.transform = `translateX(${desplazamiento}px)`;
+    }
+
+    const listaCarrito = document.getElementById('lista-carrito');
+    const totalCarrito = document.getElementById('total');
+    let total = 0;
+
+    function agregarCarrito(nombre, precio) {
+      const item = document.createElement('li');
+      item.textContent = `${nombre} - $${precio.toLocaleString()}`;
+
+      const botonEliminar = document.createElement('button');
+      botonEliminar.textContent = '❌';
+      botonEliminar.onclick = function () {
+        listaCarrito.removeChild(item);
+        total -= precio;
+        totalCarrito.textContent = total.toLocaleString();
+      };
+
+      item.appendChild(botonEliminar);
+      listaCarrito.appendChild(item);
+      total += precio;
+      totalCarrito.textContent = total.toLocaleString();
+    }
+  </script>
+</body>
+</html>
