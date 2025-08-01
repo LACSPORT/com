@@ -4,14 +4,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>LAC SPORT</title>
-
   <style>
     html, body {
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
       overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: url('FOTOS/fotofondo.jpeg') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+    }
+
+    /* Control de claridad/oscuridad del fondo */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 1.5); /* Cambia el último número para oscurecer o aclarar */
+      z-index: -1;
     }
 
     header {
@@ -19,7 +35,7 @@
       color: white;
       padding: 1rem;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
       position: sticky;
       top: 0;
@@ -29,9 +45,15 @@
     header h1 {
       margin: 0;
       font-size: 1.5rem;
+      text-align: center;
+      flex-grow: 1;
     }
 
     .icono-carrito {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
       cursor: pointer;
     }
 
@@ -92,6 +114,15 @@
       margin-top: 10px;
     }
 
+    main {
+      padding-top: 6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-grow: 1;
+    }
+
     .galeria {
       display: flex;
       justify-content: center;
@@ -128,6 +159,15 @@
       object-fit: cover;
       display: block;
       margin: auto;
+      border-radius: 8px;
+    }
+
+    .info-producto {
+      background-color: white;
+      border-radius: 8px;
+      padding: 8px;
+      margin-top: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
 
     .flecha {
@@ -153,15 +193,7 @@
       color: #fff;
       text-align: center;
       padding: 1rem;
-      margin-top: 8rem;
-    }
-
-    main {
-      padding-top: 6rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      margin-top: auto;
     }
 
     input, textarea {
@@ -228,43 +260,50 @@
       <h4>Formulario de Envío</h4>
       <form action="https://formspree.io/f/mwpqbogz" method="POST">
         <input required name="nombre" placeholder="Nombre">
-        <input required name="direccion" placeholder="Dirección">
+        <input required name="correo electronico" placeholder="Correo">
         <input required name="telefono" placeholder="Teléfono">
-        <input required name="cedula" placeholder="Cédula">
         <textarea readonly name="pedido" id="resumenPedido" rows="5"></textarea>
         <input type="submit" value="Confirmar Pedido" class="btn">
       </form>
     </div>
   </div>
-
+<CENTER><H1>PROMOCIONES</H1></CENTER>
   <main>
     <section class="galeria">
       <div class="flecha" onclick="mover(-1)">&#10094;</div>
       <div class="carrusel">
         <div class="imagenes" id="carrusel">
           <div class="producto">
-            <img src="https://via.placeholder.com/200x130?text=1A" alt="Pantalón 1">
-            <p>Pantalón 1A</p>
-            <p>$49.900</p>
-            <button class="btn" onclick="agregarAlCarrito('Pantalón 1A', 49900)">Agregar</button>
+            <img src="https://cdn.pixelbin.io/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/uhP0KJ090-GT-Official-Match-Replica-Jersey-(2023).png" alt="Pantalón 1">
+            <div class="info-producto">
+              <p>Pantalón 1A</p>
+              <p>$49.900</p>
+              <button class="btn" onclick="agregarAlCarrito('Pantalón 1A', 49900)">Agregar</button>
+            </div>
           </div>
           <div class="producto">
-            <img src="https://via.placeholder.com/200x130?text=2A" alt="Pantalón 2">
-            <p>Pantalón 2A</p>
-            <p>$54.900</p>
-            <button class="btn" onclick="agregarAlCarrito('Pantalón 2A', 54900)">Agregar</button>
+            <img src="https://cdn.pixelbin.io/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/uhP0KJ090-GT-Official-Match-Replica-Jersey-(2023).png" alt="Pantalón 2">
+            <div class="info-producto">
+              <p>Pantalón 2A</p>
+              <p>$54.900</p>
+              <button class="btn" onclick="agregarAlCarrito('Pantalón 2A', 54900)">Agregar</button>
+            </div>
           </div>
           <div class="producto">
-            <img src="https://via.placeholder.com/200x130?text=3A" alt="Pantalón 3">
-            <p>Pantalón 3A</p>
-            <p>$57.000</p>
-            <button class="btn" onclick="agregarAlCarrito('Pantalón 3A', 57000)">Agregar</button>
+            <img src="https://cdn.pixelbin.io/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/uhP0KJ090-GT-Official-Match-Replica-Jersey-(2023).png" alt="Pantalón 3">
+            <div class="info-producto">
+              <p>Pantalón 3A</p>
+              <p>$57.000</p>
+              <button class="btn" onclick="agregarAlCarrito('Pantalón 3A', 57000)">Agregar</button>
+            </div>
           </div>
           <div class="producto">
-            <img src="https://via.placeholder.com/200x130?text=4A" alt="Pantalón 4">
-            <p>Pantalón 4A</p>
-            <p>$52.000</p>
-            <button class="btn" onclick="agregarAlCarrito('Pantalón 4A', 52000)">Agregar</button>
+            <img src="https://cdn.pixelbin.io/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/uhP0KJ090-GT-Official-Match-Replica-Jersey-(2023).png" alt="Pantalón 4">
+            <div class="info-producto">
+              <p>Pantalón 4A</p>
+              <p>$52.000</p>
+              <button class="btn" onclick="agregarAlCarrito('Pantalón 4A', 52000)">Agregar</button>
+            </div>
           </div>
         </div>
       </div>

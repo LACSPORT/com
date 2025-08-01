@@ -1,95 +1,143 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JERSEY</title>
-</head>
-<body>
-    <title>JERSEY</title>
-
-
-
-</head>
-<body>
- 
-    <style>
-        body {
-          font-family: Arial, sans-serif;
-          margin: 0;
-          background-color: #ffffff;
-        }
-        header {
-          background-color: #292b2c;
-          color: white;
-          padding: 1rem;
-          text-align: center;
-        }
-        nav {
-          background-color: #000000;
-          padding: 0.5rem;
-          text-align: center;
-        }
-        nav a {
-          color: white;
-          text-decoration: none;
-          margin: 0 1rem;
-          font-weight: bold;
-        }
-        main {
-          padding: 2rem;
-        }
-        footer {
-          background-color: #000000;
-          color: white;
-          text-align: center;
-          padding: 1rem;
-          position: fixed;
-          width: 100%;
-          bottom: 0;
-        }
-        .card {
-          background: white;
-          padding: 1rem;
-          margin: 1rem 0;
-          border-radius: 8px;
-          box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-      </style>
-
-
-  <header>
-    <h1>JERSEY</h1>
-  </header>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JERSEY</title>
   <style>
-    body {
+    html, body {
+      margin: 0;
+      padding: 0;
       font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
-      margin: 40px;
-      text-align: center;
+      background-color: #f4f4f4;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
+
+    header {
+      background-color: #292b2c;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1001;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    .icono-carrito {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+
+    .icono-carrito img {
+      width: 30px;
+      height: 30px;
+    }
+
+    nav {
+      background-color: #444;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      position: sticky;
+      top: 60px;
+      z-index: 1000;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      background-color: #333;
+      border-radius: 5px;
+    }
+
+    nav a:hover {
+      background-color: #555;
+    }
+
+    .carrito {
+      display: none;
+      background-color: white;
+      border-top: 1px solid #ccc;
+      padding: 1rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .carrito.visible {
+      display: block;
+    }
+
+    .carrito ul {
+      list-style: none;
+      padding: 0;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .carrito li {
+      margin-bottom: 5px;
+    }
+
+    .carrito button {
+      margin-top: 10px;
+    }
+
     .galeria {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 20px 0;
+      margin: 20px auto;
+      max-width: 100%;
+      overflow: hidden;
+      padding: 0 1rem;
+      box-sizing: border-box;
     }
+
     .carrusel {
       display: flex;
       overflow: hidden;
-      width: 600px;
+      width: 660px;
+      max-width: 100%;
     }
+
     .imagenes {
       display: flex;
       transition: transform 0.5s ease;
     }
-    .imagenes img {
-      width: 180px;
-      height: 180px;
-      margin: 0 5px;
-      object-fit: cover;
+
+    .producto {
+      text-align: center;
+      margin: 0 10px;
+      flex: 0 0 auto;
+      width: 200px;
     }
+
+    .producto img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+      margin: auto;
+    }
+
     .flecha {
       font-size: 30px;
       cursor: pointer;
@@ -97,60 +145,251 @@
       margin: 0 10px;
       color: #333;
     }
+
+    .btn {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 4px;
+      margin-top: 5px;
+    }
+
+    footer {
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+      margin-top: auto;
+    }
+
+    main {
+      padding-top: 6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-grow: 1;
+    }
+
+    input, textarea {
+      width: 100%;
+      margin-bottom: 5px;
+      padding: 6px;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .galeria {
+        flex-direction: column;
+      }
+
+      .carrusel {
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+      }
+
+      .imagenes {
+        flex-wrap: nowrap;
+      }
+
+      .producto {
+        scroll-snap-align: start;
+        min-width: 220px;
+        max-width: 80%;
+        margin: 0 5px;
+      }
+
+      .flecha {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
-<section class="card">
-  <h2>LAC SPORT</h2>
-  <div class="galeria">
-    <div class="flecha" onclick="mover(-1, 0)">&#10094;</div>
-    <div class="carrusel">
-      <div class="imagenes fila1">
-        <img src="https://tse2.mm.bing.net/th/id/OIP.NOiVhDFBPlz1MHDMRvVMlAHaHa?pid=Api&P=0&h=180" >
-        <img src="https://tse2.mm.bing.net/th/id/OIP.NOiVhDFBPlz1MHDMRvVMlAHaHa?pid=Api&P=0&h=180">
-        <img src="https://tse2.mm.bing.net/th/id/OIP.NOiVhDFBPlz1MHDMRvVMlAHaHa?pid=Api&P=0&h=180">
-        <img src="https://tse2.mm.bing.net/th/id/OIP.NOiVhDFBPlz1MHDMRvVMlAHaHa?pid=Api&P=0&h=180">
-        <img src="https://tse2.mm.bing.net/th/id/OIP.NOiVhDFBPlz1MHDMRvVMlAHaHa?pid=Api&P=0&h=180">
-      </div>
+  <header>
+    <h1>JERSEY</h1>
+    <div class="icono-carrito" onclick="toggleCarrito()">
+      <img src="https://cdn-icons-png.flaticon.com/512/8690/8690366.png" alt="Carrito">
     </div>
-    <div class="flecha" onclick="mover(1, 0)">&#10095;</div>
+  </header>
+
+  <nav>
+    <a href="index.html">INICIO</a>
+  </nav>
+
+  <div class="carrito" id="carrito">
+    <h3>Carrito</h3>
+    <ul id="lista-carrito"></ul>
+    <p id="total">Total: $0</p>
+    <button onclick="vaciarCarrito()">Vaciar Carrito</button>
+
+    <div id="formulario-envio" style="display:none">
+      <h4>Formulario de Envío</h4>
+      <form action="https://formspree.io/f/mwpqbogz" method="POST">
+        <input required name="nombre" placeholder="Nombre">
+        <input required name="direccion" placeholder="Dirección">
+        <input required name="telefono" placeholder="Teléfono">
+        <input required name="cedula" placeholder="Cédula">
+        <textarea readonly name="pedido" id="resumenPedido" rows="5"></textarea>
+        <input type="submit" value="Confirmar Pedido" class="btn">
+      </form>
+    </div>
   </div>
 
-  <h2>FOX</h2>
-  <div class="galeria">
-    <div class="flecha" onclick="mover(-1, 1)">&#10094;</div>
-    <div class="carrusel">
-      <div class="imagenes fila2">
-        <img src="https://via.placeholder.com/200x130?text=1B">
-        <img src="https://via.placeholder.com/200x130?text=2B">
-        <img src="https://via.placeholder.com/200x130?text=3B">
-        <img src="https://via.placeholder.com/200x130?text=4B">
-        <img src="https://via.placeholder.com/200x130?text=5B">
+  <main>
+    <H1>LAC SPORT</H1>
+    <!-- Primera galería -->
+    <section class="galeria">
+      <div class="flecha" onclick="mover(-1)">&#10094;</div>
+      <div class="carrusel">
+        <div class="imagenes" id="carrusel">
+          <div class="producto">
+            <img src="https://cdn.pixelbin.io/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/uhP0KJ090-GT-Official-Match-Replica-Jersey-(2023).png" alt="Pantalón 1A">
+            <p>Pantalón 1A</p>
+            <p>$49.900</p>
+            <button class="btn" onclick="agregarAlCarrito('Pantalón 1A', 49900)">Agregar</button>
+          </div>
+          <div class="producto">
+            <img src="https://cdn.pixelbin.io/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/uhP0KJ090-GT-Official-Match-Replica-Jersey-(2023).png" alt="Pantalón 2A">
+            <p>Pantalón 2A</p>
+            <p>$54.900</p>
+            <button class="btn" onclick="agregarAlCarrito('Pantalón 2A', 54900)">Agregar</button>
+          </div>
+          <div class="producto">
+            <img src="https://cdn.pixelbin.io/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/uhP0KJ090-GT-Official-Match-Replica-Jersey-(2023).png" alt="Pantalón 3A">
+            <p>Pantalón 3A</p>
+            <p>$57.000</p>
+            <button class="btn" onclick="agregarAlCarrito('Pantalón 3A', 57000)">Agregar</button>
+          </div>
+          <div class="producto">
+            <img src="https://cdn.pixelbin.io/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/uhP0KJ090-GT-Official-Match-Replica-Jersey-(2023).png" alt="Pantalón 4A">
+            <p>Pantalón 4A</p>
+            <p>$52.000</p>
+            <button class="btn" onclick="agregarAlCarrito('Pantalón 4A', 52000)">Agregar</button>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="flecha" onclick="mover(1, 1)">&#10095;</div>
-  </div>
+      <div class="flecha" onclick="mover(1)">&#10095;</div>
+    </section>
+    <H1>FOX</H1>
+    <!-- Segunda galería -->
+    <section class="galeria">
+      <div class="flecha" onclick="mover2(-1)">&#10094;</div>
+      <div class="carrusel">
+        <div class="imagenes" id="carrusel2">
+          <div class="producto">
+            <img src="https://cdn.pixelbin.io/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/uhP0KJ090-GT-Official-Match-Replica-Jersey-(2023).png" alt="Pantalón 1B">
+            <p>Pantalón 1B</p>
+            <p>$45.000</p>
+            <button class="btn" onclick="agregarAlCarrito('Pantalón 1B', 45000)">Agregar</button>
+          </div>
+          <div class="producto">
+            <img src="https://cdn.pixelbin.io/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/uhP0KJ090-GT-Official-Match-Replica-Jersey-(2023).png" alt="Pantalón 2B">
+            <p>Pantalón 2B</p>
+            <p>$48.000</p>
+            <button class="btn" onclick="agregarAlCarrito('Pantalón 2B', 48000)">Agregar</button>
+          </div>
+          <div class="producto">
+            <img src="https://cdn.pixelbin.io/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/uhP0KJ090-GT-Official-Match-Replica-Jersey-(2023).png" alt="Pantalón 3B">
+            <p>Pantalón 3B</p>
+            <p>$50.000</p>
+            <button class="btn" onclick="agregarAlCarrito('Pantalón 3B', 50000)">Agregar</button>
+          </div>
+          <div class="producto">
+            <img src="https://cdn.pixelbin.io/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/uhP0KJ090-GT-Official-Match-Replica-Jersey-(2023).png" alt="Pantalón 4B">
+            <p>Pantalón 4B</p>
+            <p>$52.000</p>
+            <button class="btn" onclick="agregarAlCarrito('Pantalón 4B', 52000)">Agregar</button>
+          </div>
+        </div>
+      </div>
+      <div class="flecha" onclick="mover2(1)">&#10095;</div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 Tienda de Pantalones - Todos los derechos reservados
+  </footer>
 
   <script>
-    let posiciones = [0, 0];
+    let posicion = 0;
+    const totalProductos = 4;
+    const visibles = 3;
 
-    function mover(direccion, fila) {
-      const carruseles = document.querySelectorAll('.imagenes');
-      const imagenesVisibles = 3;
-      const totalImagenes = carruseles[fila].children.length;
-      posiciones[fila] += direccion;
-
-      if (posiciones[fila] < 0) posiciones[fila] = 0;
-      if (posiciones[fila] > totalImagenes - imagenesVisibles) {
-        posiciones[fila] = totalImagenes - imagenesVisibles;
-      }
-
-      const desplazamiento = -posiciones[fila] * 210; // 200px + 2*5px margen
-      carruseles[fila].style.transform = `translateX(${desplazamiento}px)`;
+    function mover(direccion) {
+      posicion += direccion;
+      if (posicion < 0) posicion = 0;
+      if (posicion > totalProductos - visibles) posicion = totalProductos - visibles;
+      document.getElementById('carrusel').style.transform = `translateX(${-posicion * 220}px)`;
     }
+
+    let posicion2 = 0;
+    const totalProductos2 = 4;
+    const visibles2 = 3;
+
+    function mover2(direccion) {
+      posicion2 += direccion;
+      if (posicion2 < 0) posicion2 = 0;
+      if (posicion2 > totalProductos2 - visibles2) posicion2 = totalProductos2 - visibles2;
+      document.getElementById('carrusel2').style.transform = `translateX(${-posicion2 * 220}px)`;
+    }
+
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+    function agregarAlCarrito(nombre, precio) {
+      carrito.push({ nombre, precio });
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      actualizarCarrito();
+    }
+
+    function actualizarCarrito() {
+      const lista = document.getElementById('lista-carrito');
+      const total = document.getElementById('total');
+      const resumen = document.getElementById('resumenPedido');
+      lista.innerHTML = '';
+      let suma = 0;
+      let resumenTexto = '';
+
+      carrito.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `${item.nombre} - $${item.precio.toLocaleString()} <button onclick="eliminarProducto(${index})">❌</button>`;
+        lista.appendChild(li);
+        suma += item.precio;
+        resumenTexto += `${item.nombre} - $${item.precio.toLocaleString()}\n`;
+      });
+
+      total.innerText = `Total: $${suma.toLocaleString()}`;
+      resumenTexto += `\nTotal: $${suma.toLocaleString()}`;
+      resumen.value = resumenTexto;
+
+      document.getElementById('formulario-envio').style.display = carrito.length > 0 ? 'block' : 'none';
+    }
+
+    function eliminarProducto(indice) {
+      carrito.splice(indice, 1);
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      actualizarCarrito();
+    }
+
+    function vaciarCarrito() {
+      carrito.length = 0;
+      localStorage.removeItem('carrito');
+      actualizarCarrito();
+    }
+
+    function toggleCarrito() {
+      const carritoDiv = document.getElementById('carrito');
+      carritoDiv.classList.toggle('visible');
+    }
+
+    document.addEventListener('DOMContentLoaded', actualizarCarrito);
   </script>
-</section class="card"> </center>
-
-
 </body>
 </html>
