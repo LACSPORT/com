@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CHAQUETA</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: url('FOTOS/fotofondo.jpeg') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.6);
+      z-index: -1;
+    }
+
+    header {
+      background-color: #292b2c;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1001;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      flex-grow: 1;
+      text-align: center;
+    }
+
+    .icono-carrito {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+
+    .icono-carrito img {
+      width: 30px;
+      height: 30px;
+    }
+
+    nav {
+      background-color: #444;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      position: sticky;
+      top: 60px;
+      z-index: 1000;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      background-color: #333;
+      border-radius: 5px;
+    }
+
+    nav a:hover {
+      background-color: #555;
+    }
+
+    .carrito {
+      display: none;
+      background-color: white;
+      border-top: 1px solid #ccc;
+      padding: 1rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .carrito.visible {
+      display: block;
+    }
+
+    .carrito ul {
+      list-style: none;
+      padding: 0;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .carrito li {
+      margin-bottom: 5px;
+    }
+
+    .carrito button {
+      margin-top: 10px;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-grow: 1;
+      padding: 0 1rem;
+    }
+
+    .titulo-promociones {
+      font-size: 2rem;
+      color: #111;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .galeria {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      max-width: 100%;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    .carrusel {
+      display: flex;
+      overflow: hidden;
+      width: 660px;
+      max-width: 100%;
+    }
+
+    .imagenes {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
+    .producto {
+      text-align: center;
+      margin: 0 10px;
+      flex: 0 0 auto;
+      width: 200px;
+    }
+
+    .producto img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+      margin: auto;
+      border-radius: 8px;
+    }
+
+    .info-producto {
+      background-color: white;
+      border-radius: 8px;
+      padding: 8px;
+      margin-top: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .flecha {
+      font-size: 30px;
+      cursor: pointer;
+      user-select: none;
+      margin: 0 10px;
+      color: #333;
+    }
+
+    .btn {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 4px;
+      margin-top: 5px;
+    }
+
+    footer {
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+      margin-top: auto;
+    }
+
+    input, textarea {
+      width: 100%;
+      margin-bottom: 5px;
+      padding: 6px;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .galeria {
+        flex-direction: column;
+      }
+
+      .carrusel {
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+      }
+
+      .imagenes {
+        flex-wrap: nowrap;
+      }
+
+      .producto {
+        scroll-snap-align: start;
+        min-width: 220px;
+        max-width: 80%;
+        margin: 0 5px;
+      }
+
+      .flecha {
+        display: none;
+      }
+    }
+        .titulo-promociones {
+      background-color: white; 
+      border-radius: 8px;     
+      padding: 10px;          
+      margin-top: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+      border: 2px solid #ddd; 
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CHAQUETA</h1>
+    <div class="icono-carrito" onclick="toggleCarrito()">
+      <img src="https://cdn-icons-png.flaticon.com/512/8690/8690366.png" alt="Carrito">
+    </div>
+  </header>
+
+  <nav>
+    <a href="index.html">INICIO</a>
+    <a href="Accesorios.html">ACCESORIOS</a>
+  </nav>
+
+  <div class="carrito" id="carrito">
+    <h3>Carrito</h3>
+    <ul id="lista-carrito"></ul>
+    <p id="total">Total: $0</p>
+    <button onclick="vaciarCarrito()">Vaciar Carrito</button>
+
+    <div id="formulario-envio" style="display:none">
+      <h4>Formulario de Envío</h4>
+      <form action="https://formspree.io/f/mwpqbogz" method="POST">
+        <input required name="nombre" placeholder="Nombre">
+        <input required name="correo electronico" placeholder="Correo">
+        <input required name="telefono" placeholder="Teléfono">
+        <textarea readonly name="pedido" id="resumenPedido" rows="5"></textarea>
+        <input type="submit" value="Confirmar Pedido" class="btn">
+      </form>
+    </div>
+  </div>
+
+  <main>
+    <h1><div class="titulo-promociones">HOMBRE</div></h1>
+
+    <!-- PRIMERA GALERÍA -->
+    <section class="galeria">
+      <div class="flecha" onclick="mover1(-1)">&#10094;</div>
+      <div class="carrusel">
+        <div class="imagenes" id="carrusel1">
+          <div class="producto">
+            <img src="" alt="Pantalón 1">
+            <div class="info-producto">
+              <p>Uniforme niño</p>
+              <p>$110.000</p>
+              <button class="btn" onclick="agregarAlCarrito('Uniforme niño', 110000)">Agregar</button>
+            </div>
+          </div>
+          <div class="producto">
+            <img src="FOTOS/foto4.jpeg" alt="Pantalón 2">
+            <div class="info-producto">
+              <p>Jersey</p>
+              <p>$63.000</p>
+              <button class="btn" onclick="agregarAlCarrito('jersey LAC', 63000)">Agregar</button>
+            </div>
+          </div>
+          <div class="producto">
+            <img src="FOTOS/foto6.jpeg" alt="Pantalón 3">
+            <div class="info-producto">
+              <p>Jersey dama</p>
+              <p>$63.000</p>
+              <button class="btn" onclick="agregarAlCarrito('Jersey dama', 63000)">Agregar</button>
+            </div>
+          </div>
+          <div class="producto">
+            <img src="FOTOS/foto14.jpeg" alt="Pantalón 4">
+            <div class="info-producto">
+              <p>Jersey corto</p>
+              <p>$85.000</p>
+              <button class="btn" onclick="agregarAlCarrito('Jersey corto LAC', 85000)">Agregar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flecha" onclick="mover1(1)">&#10095;</div>
+    </section>
+
+    <!-- SEGUNDA GALERÍA -->
+    <h1><div class="titulo-promociones">DAMA</div></h1>
+    <section class="galeria">
+      <div class="flecha" onclick="mover2(-1)">&#10094;</div>
+      <div class="carrusel">
+        <div class="imagenes" id="carrusel2">
+          <div class="producto">
+            <img src="FOTOS/foto10.jpeg" alt="Producto A">
+            <div class="info-producto">
+              <p>Pantaloneta</p>
+              <p>$55.000</p>
+              <button class="btn" onclick="agregarAlCarrito('Pantaloneta', 55000)">Agregar</button>
+            </div>
+          </div>
+          <div class="producto">
+            <img src="FOTOS/foto12.jpeg" alt="Producto B">
+            <div class="info-producto">
+              <p>Chaqueta</p>
+              <p>$120.000</p>
+              <button class="btn" onclick="agregarAlCarrito('Chaqueta', 120000)">Agregar</button>
+            </div>
+          </div>
+          <div class="producto">
+            <img src="FOTOS/foto8.jpeg" alt="Producto C">
+            <div class="info-producto">
+              <p>Gorra</p>
+              <p>$30.000</p>
+              <button class="btn" onclick="agregarAlCarrito('Gorra', 30000)">Agregar</button>
+            </div>
+          </div>
+          <div class="producto">
+            <img src="FOTOS/foto9.jpeg" alt="Producto D">
+            <div class="info-producto">
+              <p>Guantes</p>
+              <p>$40.000</p>
+              <button class="btn" onclick="agregarAlCarrito('Guantes', 40000)">Agregar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flecha" onclick="mover2(1)">&#10095;</div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 Tienda de Pantalones - Todos los derechos reservados
+  </footer>
+
+  <script>
+    // Primera galería
+    let pos1 = 0;
+    const totalProd1 = 4;
+    const visibles1 = 3;
+
+    function mover1(dir) {
+      pos1 += dir;
+      if (pos1 < 0) pos1 = 0;
+      if (pos1 > totalProd1 - visibles1) pos1 = totalProd1 - visibles1;
+      document.getElementById('carrusel1').style.transform = `translateX(${-pos1 * 220}px)`;
+    }
+
+    // Segunda galería
+    let pos2 = 0;
+    const totalProd2 = 4;
+    const visibles2 = 3;
+
+    function mover2(dir) {
+      pos2 += dir;
+      if (pos2 < 0) pos2 = 0;
+      if (pos2 > totalProd2 - visibles2) pos2 = totalProd2 - visibles2;
+      document.getElementById('carrusel2').style.transform = `translateX(${-pos2 * 220}px)`;
+    }
+
+    // Carrito
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+    function agregarAlCarrito(nombre, precio) {
+      carrito.push({ nombre, precio });
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      actualizarCarrito();
+    }
+
+    function actualizarCarrito() {
+      const lista = document.getElementById('lista-carrito');
+      const total = document.getElementById('total');
+      const resumen = document.getElementById('resumenPedido');
+      lista.innerHTML = '';
+      let suma = 0;
+      let resumenTexto = '';
+
+      carrito.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `${item.nombre} - $${item.precio.toLocaleString()} <button onclick="eliminarProducto(${index})">❌</button>`;
+        lista.appendChild(li);
+        suma += item.precio;
+        resumenTexto += `${item.nombre} - $${item.precio.toLocaleString()}\n`;
+      });
+
+      total.innerText = `Total: $${suma.toLocaleString()}`;
+      resumenTexto += `\nTotal: $${suma.toLocaleString()}`;
+      resumen.value = resumenTexto;
+
+      document.getElementById('formulario-envio').style.display = carrito.length > 0 ? 'block' : 'none';
+    }
+
+    function eliminarProducto(indice) {
+      carrito.splice(indice, 1);
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      actualizarCarrito();
+    }
+
+    function vaciarCarrito() {
+      carrito.length = 0;
+      localStorage.removeItem('carrito');
+      actualizarCarrito();
+    }
+
+    function toggleCarrito() {
+      const carritoDiv = document.getElementById('carrito');
+      carritoDiv.classList.toggle('visible');
+    }
+
+    document.addEventListener('DOMContentLoaded', actualizarCarrito);
+  </script>
+</body>
+</html>
